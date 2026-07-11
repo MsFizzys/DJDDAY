@@ -1,0 +1,471 @@
+/* =============================================================
+   DJDDAY — Design tokens
+   Dark mood: North Bay club energy (Home / Mixes / Gigs)
+   Warm mood: candid, human (About)
+   ============================================================= */
+:root {
+  /* color — dark mood */
+  --bg-dark: #0b0708;
+  --bg-dark-2: #150c0d;
+  --red: #c41e3a;
+  --red-glow: #ff3b3b;
+  --amber: #ff7a45;
+  --white: #f5f1ec;
+  --white-dim: #cbb9b9;
+
+  /* color — warm mood (About) */
+  --cream: #f3e9dc;
+  --cream-2: #ece0cf;
+  --dusty-pink: #d98e93;
+  --ink: #241615;
+  --ink-dim: #5c4746;
+
+  /* type */
+  --font-display: "Big Shoulders Display", sans-serif;
+  --font-body: "IBM Plex Sans", sans-serif;
+  --font-serif: "Fraunces", serif;
+
+  /* layout */
+  --max-w: 1180px;
+  --gutter: clamp(1.25rem, 5vw, 3.5rem);
+  --radius: 2px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--bg-dark);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.mood-warm {
+  background: var(--cream);
+  color: var(--ink);
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 0.92;
+  margin: 0;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--amber);
+  font-weight: 600;
+}
+
+.mood-warm .eyebrow { color: var(--dusty-pink); }
+
+p { margin: 0 0 1rem; }
+
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* focus visibility */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+}
+
+/* =============================================================
+   Nav
+   ============================================================= */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.1rem var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, rgba(11,7,8,0.85), transparent);
+  transition: background 0.25s ease;
+}
+
+.site-header.is-scrolled {
+  background: rgba(11,7,8,0.92);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 1px 0 rgba(196,30,58,0.25);
+}
+
+.mood-warm .site-header {
+  background: linear-gradient(to bottom, rgba(243,233,220,0.92), transparent);
+}
+.mood-warm .site-header.is-scrolled {
+  background: rgba(243,233,220,0.95);
+  box-shadow: 0 1px 0 rgba(217,142,147,0.4);
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.mood-warm .brand { color: var(--ink); }
+.brand span { color: var(--red-glow); }
+.mood-warm .brand span { color: var(--dusty-pink); }
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 1px solid currentColor;
+  color: inherit;
+  padding: 0.4rem 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.nav-list {
+  display: flex;
+  gap: 1.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.nav-list a { padding: 0.25rem 0; border-bottom: 2px solid transparent; }
+.nav-list a:hover, .nav-list a[aria-current="page"] { border-bottom-color: var(--red-glow); }
+.mood-warm .nav-list a:hover, .mood-warm .nav-list a[aria-current="page"] { border-bottom-color: var(--dusty-pink); }
+
+@media (max-width: 720px) {
+  .nav-toggle { display: inline-block; }
+  .nav-list {
+    position: fixed;
+    inset: 0 0 auto 0;
+    top: 0;
+    flex-direction: column;
+    background: var(--bg-dark-2);
+    padding: 5.5rem 2rem 2rem;
+    gap: 1.25rem;
+    font-size: 1.1rem;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+  }
+  .mood-warm .nav-list { background: var(--cream-2); }
+  .nav-list.is-open { transform: translateY(0); }
+}
+
+/* =============================================================
+   Signature motif: pulse line (waveform)
+   ============================================================= */
+.pulse-divider {
+  width: 100%;
+  height: 46px;
+  display: block;
+  margin: 0 auto;
+}
+.pulse-divider path {
+  stroke: var(--red);
+  stroke-width: 2;
+  fill: none;
+  opacity: 0.7;
+}
+.mood-warm .pulse-divider path { stroke: var(--dusty-pink); }
+
+/* =============================================================
+   Hero
+   ============================================================= */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background: #000;
+}
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  filter: saturate(1.15) contrast(1.05);
+}
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(11,7,8,0.35) 0%, rgba(11,7,8,0.55) 55%, rgba(11,7,8,0.96) 100%),
+    linear-gradient(100deg, rgba(196,30,58,0.35), rgba(11,7,8,0) 60%);
+  z-index: 1;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 var(--gutter) 4.5rem;
+  max-width: 900px;
+}
+.hero h1 {
+  font-size: clamp(3rem, 12vw, 7rem);
+  color: var(--white);
+  text-shadow: 0 2px 40px rgba(196,30,58,0.35);
+}
+.hero .tagline {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 2.4vw, 1.3rem);
+  color: var(--white-dim);
+  max-width: 32ch;
+  margin-top: 1rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+/* =============================================================
+   Buttons
+   ============================================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.6rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  border: 1.5px solid var(--red);
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.btn-solid {
+  background: var(--red);
+  color: var(--white);
+}
+.btn-solid:hover { background: var(--red-glow); border-color: var(--red-glow); transform: translateY(-2px); }
+.btn-outline {
+  background: transparent;
+  color: var(--white);
+  border-color: var(--white-dim);
+}
+.btn-outline:hover { border-color: var(--white); transform: translateY(-2px); }
+
+.mood-warm .btn { border-color: var(--dusty-pink); }
+.mood-warm .btn-solid { background: var(--dusty-pink); color: var(--ink); }
+.mood-warm .btn-solid:hover { background: #c67378; border-color: #c67378; }
+.mood-warm .btn-outline { color: var(--ink); border-color: var(--ink-dim); }
+.mood-warm .btn-outline:hover { border-color: var(--ink); }
+
+/* =============================================================
+   Sections (generic)
+   ============================================================= */
+section { padding: 5rem 0; }
+.section-tight { padding: 3rem 0; }
+
+.section-head { max-width: 640px; margin-bottom: 2.5rem; }
+.section-head h2 { font-size: clamp(2rem, 5vw, 3.4rem); margin-top: 0.4rem; }
+
+/* =============================================================
+   Home — featured mix teaser
+   ============================================================= */
+.teaser {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+@media (min-width: 800px) {
+  .teaser { grid-template-columns: 1fr 1fr; }
+}
+.teaser-copy p { color: var(--white-dim); }
+
+/* =============================================================
+   Mixes page
+   ============================================================= */
+.mix-block { margin-bottom: 3rem; }
+.mix-block .eyebrow { display: block; margin-bottom: 0.5rem; }
+.mix-block h3 { font-size: clamp(1.6rem, 4vw, 2.4rem); margin-bottom: 1rem; }
+.mix-embed-wrap {
+  border: 1px solid rgba(196,30,58,0.35);
+  background: var(--bg-dark-2);
+  padding: 0.5rem;
+}
+.mix-embed-wrap iframe { width: 100%; display: block; border: none; }
+
+.sc-follow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1rem;
+  color: var(--amber);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid transparent;
+}
+.sc-follow:hover { border-bottom-color: var(--amber); }
+
+/* =============================================================
+   About — warm mood
+   ============================================================= */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+@media (min-width: 800px) {
+  .about-grid { grid-template-columns: 0.85fr 1.15fr; }
+}
+.about-photo-frame {
+  border: 10px solid var(--cream-2);
+  box-shadow: 0 18px 40px rgba(90,50,45,0.18);
+  transform: rotate(-1.4deg);
+}
+.about-photo-frame img { filter: saturate(0.92) sepia(0.08); }
+
+.bio-copy p {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--ink);
+}
+.bio-name {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.6rem;
+  color: var(--ink-dim);
+  margin-top: 1.5rem;
+}
+
+/* =============================================================
+   Gigs / booking form
+   ============================================================= */
+.booking-shell {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+@media (min-width: 860px) {
+  .booking-shell { grid-template-columns: 0.9fr 1.1fr; }
+}
+.booking-note { color: var(--white-dim); }
+.booking-note ul { padding-left: 1.1rem; }
+.booking-note li { margin-bottom: 0.5rem; }
+
+form.booking-form {
+  display: grid;
+  gap: 1.1rem;
+}
+.field { display: grid; gap: 0.4rem; }
+.field label {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--white-dim);
+  font-weight: 600;
+}
+.mood-warm .field label { color: var(--ink-dim); }
+
+.field input, .field textarea {
+  background: var(--bg-dark-2);
+  border: 1px solid rgba(245,241,236,0.18);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: var(--radius);
+}
+.field input::placeholder, .field textarea::placeholder { color: rgba(245,241,236,0.35); }
+.field input:focus, .field textarea:focus { border-color: var(--red-glow); }
+
+.row-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.1rem;
+}
+@media (min-width: 560px) {
+  .row-2 { grid-template-columns: 1fr 1fr; }
+}
+
+.form-note {
+  font-size: 0.8rem;
+  color: var(--white-dim);
+  margin-top: -0.3rem;
+}
+
+/* =============================================================
+   Contact page
+   ============================================================= */
+.contact-block { max-width: 560px; }
+.contact-block a.email-link {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 5vw, 2.6rem);
+  color: var(--red-glow);
+  text-transform: none;
+  border-bottom: 2px solid var(--red);
+}
+
+/* =============================================================
+   Footer
+   ============================================================= */
+.site-footer {
+  padding: 3rem var(--gutter) 2.5rem;
+  border-top: 1px solid rgba(245,241,236,0.1);
+  font-size: 0.85rem;
+  color: var(--white-dim);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+}
+.mood-warm .site-footer {
+  border-top: 1px solid rgba(36,22,21,0.12);
+  color: var(--ink-dim);
+}
+.site-footer a:hover { color: var(--amber); }
+.mood-warm .site-footer a:hover { color: var(--dusty-pink); }
+
+/* skip link */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--red);
+  color: var(--white);
+  padding: 0.75rem 1.25rem;
+  z-index: 200;
+}
+.skip-link:focus {
+  left: var(--gutter);
+  top: var(--gutter);
+}
